@@ -1,7 +1,7 @@
 import { auth } from "../firebase";  
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";  
 
-const handleSignUp = async (email, password) => {  
+export const handleSignUp = async (email, password) => {  
   try {  
     await createUserWithEmailAndPassword(auth, email, password);  
   } catch (error) {  
@@ -9,7 +9,7 @@ const handleSignUp = async (email, password) => {
   }  
 };  
 
-const handleLogin = async (email, password) => {  
+export const handleLogin = async (email, password) => {  
   try {  
     await signInWithEmailAndPassword(auth, email, password);  
   } catch (error) {  
