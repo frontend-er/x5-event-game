@@ -27,6 +27,9 @@ function App() {
 
           {/* Game Page */}
           <Route path="/game" element={<div>Game</div>} />
+
+          {/* 404 Page */}
+          <Route path="*" element={<div>404</div>} />
         </Routes>
       </div>
     </Router>
