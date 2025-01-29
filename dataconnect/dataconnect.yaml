@@ -1,0 +1,12 @@
+specVersion: "v1beta"
+serviceId: "x5-event-game"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdcdb"
+      cloudSql:
+        instanceId: "x5-event-game-fdc"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]
