@@ -11,7 +11,7 @@ export default function Leaderboard() {
       const snapshot = await getDocs(leaderboardRef);
 
       const leaderboardData = snapshot.docs.map((doc) => ({
-        email: doc.data().userName,
+        email: doc.data().email,
         score: doc.data().score,
       }));
       setLeaderboard(leaderboardData);

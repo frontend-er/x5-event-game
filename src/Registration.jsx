@@ -14,7 +14,6 @@ export default function Registration() {
   };
 
   useEffect(() => {
-    // Redirect to menu if user is already signed in
     if (auth.currentUser) {
       navigate("/game");
     }
@@ -25,7 +24,6 @@ export default function Registration() {
     setError("");
 
     try {
-      // Firebase registration
       await createUserWithEmailAndPassword(auth, form.email, form.password);
       navigate("/game"); // Redirect to menu on success
     } catch (err) {
@@ -34,11 +32,16 @@ export default function Registration() {
   };
 
   return (
-    <div className="  text-white flex flex-col items-center justify-center px-4">
+    <div className="text-white flex flex-col items-center justify-center px-4">
       <Header>
         <div className="mt-8 w-full max-w-md bg-black/50 rounded-xl p-6 shadow-lg">
           <h2 className="text-2xl font-semibold mb-4">
-            Регистрация <span className="text-green-400">Account</span>
+            Регистрация{" "}
+            <span className="text-green-400">
+              {" "}
+              <br />
+              Account
+            </span>
           </h2>
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
           <form className="space-y-4" onSubmit={handleSubmit}>
@@ -48,7 +51,7 @@ export default function Registration() {
               placeholder="Email"
               value={form.email}
               onChange={handleChange}
-              className="w-full bg-gray-800 text-white placeholder-gray-400 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full bg-gray-600 text-white placeholder-gray-400 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
             <input
               type="text"
@@ -56,7 +59,7 @@ export default function Registration() {
               placeholder="ФИО"
               value={form.name}
               onChange={handleChange}
-              className="w-full bg-gray-800 text-white placeholder-gray-400 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full bg-gray-600 text-white placeholder-gray-400 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
             <input
               type="password"
@@ -64,7 +67,7 @@ export default function Registration() {
               placeholder="Пароль"
               value={form.password}
               onChange={handleChange}
-              className="w-full bg-gray-800 text-white placeholder-gray-400 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full bg-gray-600 text-white placeholder-gray-400 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
             <button
               type="submit"

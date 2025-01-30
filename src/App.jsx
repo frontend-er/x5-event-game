@@ -13,7 +13,7 @@ import UserData from "./UserData";
 function App() {
   return (
     <Router>
-      <div className="min-h-screen min-w-screen bg-gradient-to-br from-blue-900 via-green-900 to-black text-white flex flex-col items-center justify-center px-4">
+      <div className="min-h-screen min-w-screen bg-gradient-to-br from-blue-900 via-green-900 to-black text-white flex flex-col items-center justify-center ">
         <Routes>
           {/* Default route */}
           <Route path="/" element={<Navigate to="/registration" />} />
