@@ -5,13 +5,15 @@ import {
   Navigate,
 } from "react-router-dom";
 import Registration from "./Registration";
-import Menu from "./Menu";
 import Login from "./Login";
+import Leaderboard from "./LeaderBoard";
+import { Game } from "./Game";
+import UserData from "./UserData";
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-green-900 to-black text-white">
+      <div className="min-h-screen min-w-screen bg-gradient-to-br from-blue-900 via-green-900 to-black text-white flex flex-col items-center justify-center px-4">
         <Routes>
           {/* Default route */}
           <Route path="/" element={<Navigate to="/registration" />} />
@@ -22,11 +24,13 @@ function App() {
           {/* Login Page */}
           <Route path="/login" element={<Login />} />
 
-          {/* Menu Page */}
-          <Route path="/menu" element={<Menu />} />
+          {/* User data */}
+          <Route path="/profile" element={<UserData />} />
 
-          {/* Game Page */}
-          <Route path="/game" element={<div>Game</div>} />
+          {/* Leaderboard Page */}
+          <Route path="/leaderboard" element={<Leaderboard />} />
+
+          <Route path="/game" element={<Game />} />
 
           {/* 404 Page */}
           <Route path="*" element={<div>404</div>} />
