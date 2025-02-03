@@ -35,7 +35,7 @@ export const HeaderGame = ({ children }) => {
     <>
       <header className="flex items-center justify-between absolute top-0 left-0 right-0 p-4 border-1 border-gray-500 m-5 rounded-2xl">
         <div className="flex items-center space-x-2s">
-          <img src="public/images/logo-x5.png" alt="logo" />
+          <img src="/images/logo-x5.png" alt="logo" />
         </div>
         {!open ? (
           <button

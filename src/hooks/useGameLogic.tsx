@@ -25,6 +25,14 @@ export const useGameLogic = (levels, onGameEnd) => {
     return () => clearInterval(timerRef.current);
   }, []);
 
+  useEffect(() => {
+    setCart([]); // Очищаем корзину при смене текущего заказа
+  }, [currentOrder]);
+
+  useEffect(() => {
+    setTimeLeft(120);
+  }, [currentLevel]);
+
   const handleProductGameClick = (product) => {
     const order = levels[currentLevel].orders[currentOrder];
     if (product === order.products[currentProductIndex]) {

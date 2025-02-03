@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { auth, leaderboardRef } from "./firebase";
-import { doc, setDoc, getDoc, or } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { HeaderGame } from "./components/HeaderGame";
 import { ProductRow } from "./components/ProductRow";
 import { useGameLogic } from "./hooks/useGameLogic";
-import { li, use } from "framer-motion/client";
 
 const levels = [
   {
@@ -14,11 +13,61 @@ const levels = [
     orders: [
       {
         user: "user-1.png",
-        products: ["water-1", "water-2", "water-3"],
+        products: ["water-1", "water-2", "water-3", "snacks-1", "snacks-2"],
       },
       {
         user: "user-1.png",
-        products: ["snacks-1", "snacks-2", "snacks-3"],
+        products: ["snacks-1", "snacks-2", "snacks-3", "fruits-1", "fruits-2"],
+      },
+      {
+        user: "user-1.png",
+        products: ["snacks-3", "snacks-1", "snacks-2", "fruits-3", "fruits-1"],
+      },
+      {
+        user: "user-1.png",
+        products: ["fruits-1", "snacks-2", "fruits-3", "water-1", "water-2"],
+      },
+      {
+        user: "user-1.png",
+        products: ["snacks-1", "snacks-2", "snacks-3", "fruits-1", "fruits-2"],
+      },
+    ],
+  },
+  {
+    name: "Day 2",
+    time: "1:59",
+    orders: [
+      {
+        user: "user-1.png",
+        products: ["water-1", "water-2", "water-3", "snacks-1", "snacks-2"],
+      },
+      {
+        user: "user-1.png",
+        products: ["snacks-1", "snacks-2", "snacks-3", "fruits-1", "fruits-2"],
+      },
+      {
+        user: "user-1.png",
+        products: ["snacks-3", "snacks-1", "snacks-2", "fruits-3", "fruits-1"],
+      },
+      {
+        user: "user-1.png",
+        products: ["fruits-1", "snacks-2", "fruits-3", "water-1", "water-2"],
+      },
+      {
+        user: "user-1.png",
+        products: ["snacks-1", "snacks-2", "snacks-3", "fruits-1", "fruits-2"],
+      },
+      {
+        user: "user-1.png",
+        products: ["snacks-3", "snacks-1", "snacks-2", "fruits-3", "fruits-1"],
+      },
+      {
+        user: "user-1.png",
+        products: ["fruits-1", "snacks-2", "fruits-3", "water-1", "water-2"],
+      },
+      {
+        user: "user-1.png",
+        products: ["snacks-1", "snacks-2", "snacks-3", "fruits-1", "fruits-2"],
       },
     ],
   },
@@ -104,6 +153,10 @@ export const Game = () => {
     return <div>Please sign in to play the game.</div>;
   }
 
+  const isOrderCompleted = (order) => {
+    return order.products.every((product) => cart.includes(product));
+  };
+
   if (gameOver) {
     if (lives === 0) {
       return (
@@ -117,7 +170,7 @@ export const Game = () => {
             <div className="flex flex-col items-center justify-center h-full">
               <div className="text-4xl font-bold">Game Over</div>
               <div className="text-2xl font-bold">
-                Your score is {userScore !== null ? userScore : score}
+                Твой счет {userScore !== null ? userScore : score}
               </div>
             </div>
           </div>
@@ -135,7 +188,7 @@ export const Game = () => {
             <div className="flex flex-col items-center justify-center h-full">
               <div className="text-4xl font-bold">Level Completed</div>
               <div className="text-2xl font-bold">
-                Your score is {userScore !== null ? userScore : score}
+                Твой счет {userScore !== null ? userScore : score}
               </div>
             </div>
           </div>
@@ -186,7 +239,7 @@ export const Game = () => {
               }}
             />
           </div>
-          <div className="text-md font-bold">День 1/10</div>
+          <div className="text-md font-bold">День {currentLevel}/10</div>
           <div className="text-md font-bold">{timeLeft}</div>
           <div className="text-md font-bold">
             Score: {userScore !== null ? userScore : score}
@@ -221,54 +274,65 @@ export const Game = () => {
         </div>
         {/* Users orders */}
         <div className="fixed bg-[#E6F0D7] bottom-[160px] w-full h-[100px] bg-center bg-no-repeat z-10">
-          <div className="text-left flex flex-row items-center p-4 gap-2">
-            {levels[currentLevel].orders.map((order, orderIndex) => {
-              const isCurrentOrder = orderIndex === currentOrder;
+          <div
+            className="text-left flex flex-row items-center p-4 gap-2"
+            style={{
+              width: "max-content",
+            }}
+          >
+            {levels[currentLevel].orders
+              .filter((order, orderIndex) => orderIndex >= currentOrder) // Показываем текущий и следующие заказы
+              .filter((order) => !isOrderCompleted(order)) // Исключаем завершённые заказы
+              .map((order, orderIndex) => {
+                const realOrderIndex = orderIndex + currentOrder; // Корректируем индекс
+                const isCurrentOrder = realOrderIndex === currentOrder;
 
-              return (
-                <div
-                  key={orderIndex}
-                  className="text-xl font-bold text-white flex flex-row items-center "
-                  style={{
-                    backgroundColor: isCurrentOrder ? "#7abc4f" : "#b0d693",
-                    borderRadius: "20px",
-                    border: "2px solid #a2d083",
-                    padding: "10px",
-                  }}
-                >
-                  <img
-                    src={`/images/user/${order.user}`}
-                    alt={order.user}
-                    className="w-10 h-10"
-                  />
-                  {order.products.map((product, productIndex) => {
-                    const isCurrent =
-                      productIndex === currentProductIndex &&
-                      orderIndex === currentOrder;
-                    const isUsed = cart.includes(product); // Assuming `cart` is an array of added product IDs
+                return (
+                  <div
+                    key={realOrderIndex}
+                    className="text-xl font-bold text-white flex flex-row items-center"
+                    style={{
+                      backgroundColor: isCurrentOrder ? "#7abc4f" : "#b0d693",
+                      borderRadius: "20px",
+                      border: "2px solid #a2d083",
+                      padding: "10px",
+                    }}
+                  >
+                    <img
+                      src={`/images/user/${order.user}`}
+                      alt={order.user}
+                      className="w-10 h-10"
+                    />
+                    {order.products.map((product, productIndex) => {
+                      const isCurrent =
+                        productIndex === currentProductIndex &&
+                        realOrderIndex === currentOrder;
+                      const isUsed = isCurrentOrder
+                        ? cart.includes(product)
+                        : false;
 
-                    return (
-                      <div
-                        key={productIndex}
-                        className="flex flex-row items-center h-[20px]"
-                        style={{
-                          opacity: isUsed ? 0.9 : isCurrent ? 1 : 0.2, // Dim past products, highlight the current
-                        }}
-                      >
-                        <img
-                          src={`/images/products/${product}.png`}
-                          alt={product}
+                      return (
+                        <div
+                          key={productIndex}
+                          className="flex flex-row items-center h-[20px]"
                           style={{
-                            height: "40px",
+                            opacity: isUsed ? 0.9 : isCurrent ? 1 : 0.2,
                           }}
-                          className="m-1"
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-              );
-            })}
+                        >
+                          <img
+                            src={`/images/products/${product}.png`}
+                            alt={product}
+                            style={{
+                              height: "40px",
+                            }}
+                            className="m-1"
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
           </div>
         </div>
         {/* Bottom Cart */}
