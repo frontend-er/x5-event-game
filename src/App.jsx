@@ -13,7 +13,7 @@ import UserData from "./UserData";
 function App() {
   return (
     <Router>
-      <div className="min-h-screen min-w-screen bg-gradient-to-br from-blue-900 via-green-900 to-black text-white flex flex-col items-center justify-center ">
+      <div className="min-h-screen min-w-screen bg-gradient-to-br from-blue-900 via-green-900 to-black text-white flex flex-col items-center justify-center overflow-hidden">
         <Routes>
           {/* Default route */}
           <Route path="/" element={<Navigate to="/registration" />} />
@@ -30,10 +30,10 @@ function App() {
           {/* Leaderboard Page */}
           <Route path="/leaderboard" element={<Leaderboard />} />
 
-          <Route path="/game" element={<Game />} />
-
           {/* 404 Page */}
           <Route path="*" element={<div>404</div>} />
+
+          <Route path="/game" element={<Game />} />
         </Routes>
       </div>
     </Router>

@@ -8,16 +8,25 @@ export default function Registration() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", name: "", password: "" });
   const [error, setError] = useState("");
+  const [user, setUser] = useState(null);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
-    if (auth.currentUser) {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (user) {
       navigate("/game");
     }
-  }, [navigate]);
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +82,14 @@ export default function Registration() {
               type="submit"
               className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600"
             >
-              Вход
+              Регистрация
+            </button>
+            <button
+              type="submit"
+              className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600"
+              onClick={() => navigate("/login")}
+            >
+              Уже есть аккаунт? Войти
             </button>
           </form>
         </div>

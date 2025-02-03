@@ -1,18 +1,50 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { auth, leaderboardRef } from "./firebase";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, or } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import { Header } from "./components/Header";
-import { motion, AnimatePresence } from "framer-motion";
+import { HeaderGame } from "./components/HeaderGame";
+import { ProductRow } from "./components/ProductRow";
+import { useGameLogic } from "./hooks/useGameLogic";
+import { li, use } from "framer-motion/client";
+
+const levels = [
+  {
+    name: "Day 1",
+    time: "1:59",
+    orders: [
+      {
+        user: "user-1.png",
+        products: ["water-1", "water-2", "water-3"],
+      },
+      {
+        user: "user-1.png",
+        products: ["snacks-1", "snacks-2", "snacks-3"],
+      },
+    ],
+  },
+];
 
 export const Game = () => {
-  const [score, setScore] = useState(0);
   const [userScore, setUserScore] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
-  const [productPosition, setProductPosition] = useState(null);
+  const cartRef = useRef(null);
+  const [gameOver, setGameOver] = useState(false);
+
+  const onGameEnd = () => {
+    setGameOver(true);
+  };
+
+  const {
+    currentLevel,
+    currentOrder,
+    currentProductIndex,
+    lives,
+    score,
+    timeLeft,
+    cart,
+    handleProductGameClick,
+  } = useGameLogic(levels, onGameEnd);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -53,11 +85,16 @@ export const Game = () => {
     }
   };
 
-  const incrementScore = () => {
-    const newScore = score + 100;
-    setScore(newScore);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const incrementScore = (newScore) => {
     saveUserScore(newScore);
   };
+
+  useEffect(() => {
+    if (gameOver === true) {
+      incrementScore(score);
+    }
+  }, [gameOver, incrementScore, score]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -67,146 +104,196 @@ export const Game = () => {
     return <div>Please sign in to play the game.</div>;
   }
 
-  const handleProductClick = (event, productId) => {
-    const rect = event.target.getBoundingClientRect();
-    setProductPosition(rect);
-    setSelectedProduct(productId);
-    setIsAddedToCart(true);
-
-    setTimeout(() => {
-      setIsAddedToCart(false);
-    }, 2000);
-  };
+  if (gameOver) {
+    if (lives === 0) {
+      return (
+        <HeaderGame>
+          <div
+            style={{
+              marginTop: "110px",
+            }}
+            className="flex flex-col h-screen w-screen"
+          >
+            <div className="flex flex-col items-center justify-center h-full">
+              <div className="text-4xl font-bold">Game Over</div>
+              <div className="text-2xl font-bold">
+                Your score is {userScore !== null ? userScore : score}
+              </div>
+            </div>
+          </div>
+        </HeaderGame>
+      );
+    } else {
+      return (
+        <HeaderGame>
+          <div
+            style={{
+              marginTop: "110px",
+            }}
+            className="flex flex-col h-screen w-screen"
+          >
+            <div className="flex flex-col items-center justify-center h-full">
+              <div className="text-4xl font-bold">Level Completed</div>
+              <div className="text-2xl font-bold">
+                Your score is {userScore !== null ? userScore : score}
+              </div>
+            </div>
+          </div>
+        </HeaderGame>
+      );
+    }
+  }
 
   return (
-    <div>
-      <Header>
-        <div className="text-white flex flex-col gap-10">
-          <div
-            style={{
-              height: "100%",
-            }}
-            className="min-w-screen flex flex-row items-center justify-between p-6 gap-5.5"
-          >
-            <div className="text-2xl font-bold">День 1/10</div>
-            <div className="text-2xl font-bold">Время 1:59</div>
-            <div className="text-2xl font-bold">
-              Score: {userScore !== null ? userScore : score}
-            </div>
+    <HeaderGame>
+      <div
+        style={{
+          marginTop: "110px",
+        }}
+        className="flex flex-col h-screen w-screen"
+      >
+        {/* Header */}
+        <div className="h-[50px] flex flex-row items-center justify-between p-6 gap-5">
+          <div className="text-md font-bold flex flex-row items-center gap-2">
+            <img
+              src="/images/lives.png"
+              alt=""
+              style={{
+                width: "25px",
+                height: "20px",
+                transform: "translateY(2px)",
+                opacity: lives >= 1 ? 1 : 0.2,
+              }}
+            />
+            <img
+              src="/images/lives.png"
+              alt=""
+              style={{
+                width: "25px",
+                height: "20px",
+                transform: "translateY(2px)",
+                opacity: lives >= 2 ? 1 : 0.2,
+              }}
+            />
+            <img
+              src="/images/lives.png"
+              alt=""
+              style={{
+                width: "25px",
+                height: "20px",
+                transform: "translateY(2px)",
+                opacity: lives >= 3 ? 1 : 0.2,
+              }}
+            />
           </div>
-          <div
-            style={{
-              height: window.innerHeight - 500,
-              display: "flex",
-              justifyContent: "start",
-              flexDirection: "column",
-              alignItems: "start",
-              textAlign: "left",
-            }}
-            className="bg-black/50"
-          >
-            <div
-              style={{
-                backgroundColor: "#969CA1",
-                textAlign: "left",
-              }}
-              className="min-w-screen flex flex-row items-center gap-10 p-2"
-            >
-              <div className="text-xl font-bold">Напитки</div>
-            </div>
-            <div
-              className="relative"
-              style={{
-                width: "100%",
-                height: "300px", // Adjust based on your requirements
-              }}
-            >
-              <img
-                style={{
-                  width: "100%",
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                }}
-                src="public/images/product-bg.png"
-                alt="Background"
-              />
-              <div
-                className="product-list flex flex-row gap-5 absolute top-0 left-0 w-full"
-                style={{
-                  zIndex: 1,
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                {[1, 2, 3].map((productId) => (
-                  <div
-                    key={productId}
-                    className="product"
-                    style={{
-                      position: "relative",
-                      cursor: "pointer",
-                    }}
-                    onClick={(e) => handleProductClick(e, productId)}
-                  >
-                    <motion.img
-                      src={
-                        selectedProduct === productId
-                          ? "public/images/products/water-1.png"
-                          : "public/images/products/water-all.png"
-                      }
-                      alt={`Product ${productId}`}
-                      initial={{ scale: 1 }}
-                      animate={{
-                        scale: selectedProduct === productId ? 0.5 : 1,
-                        y: selectedProduct === productId ? -150 : 0, // Jump upwards
-                        opacity: selectedProduct === productId ? 0 : 1, // Fade out
-                      }}
-                      transition={{
-                        duration: 1.5, // Slow animation
-                        ease: "easeOut",
-                      }}
-                      style={{
-                        width: "50px", // Adjust size
-                        height: "50px", // Adjust size
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-              <AnimatePresence>
-                {isAddedToCart && productPosition && (
-                  <motion.div
-                    style={{
-                      position: "absolute",
-                      top: productPosition.top,
-                      left: productPosition.left,
-                      width: "50px",
-                      height: "50px",
-                      background:
-                        "url('public/images/products/water-1.png') no-repeat center center",
-                      backgroundSize: "contain",
-                      zIndex: 10,
-                    }}
-                    initial={{ opacity: 1 }}
-                    animate={{
-                      y: window.innerHeight - 100, // Cart position
-                      opacity: 0,
-                    }}
-                    exit={{
-                      opacity: 0,
-                    }}
-                    transition={{
-                      duration: 2,
-                      ease: "easeInOut",
-                    }}
-                  />
-                )}
-              </AnimatePresence>
-            </div>
+          <div className="text-md font-bold">День 1/10</div>
+          <div className="text-md font-bold">{timeLeft}</div>
+          <div className="text-md font-bold">
+            Score: {userScore !== null ? userScore : score}
           </div>
         </div>
-      </Header>
-    </div>
+
+        {/* Body (Scrollable) */}
+        <div
+          className="flex-1 overflow-y-auto overflow-x-hidden"
+          style={{
+            marginBottom: "360px",
+          }}
+        >
+          <ProductRow
+            key={1}
+            type={"drinks"}
+            cartRef={cartRef}
+            handleProductGameClick={handleProductGameClick}
+          />
+          <ProductRow
+            key={2}
+            type={"fruits"}
+            cartRef={cartRef}
+            handleProductGameClick={handleProductGameClick}
+          />
+          <ProductRow
+            key={3}
+            type={"snacks"}
+            cartRef={cartRef}
+            handleProductGameClick={handleProductGameClick}
+          />
+        </div>
+        {/* Users orders */}
+        <div className="fixed bg-[#E6F0D7] bottom-[160px] w-full h-[100px] bg-center bg-no-repeat z-10">
+          <div className="text-left flex flex-row items-center p-4 gap-2">
+            {levels[currentLevel].orders.map((order, orderIndex) => {
+              const isCurrentOrder = orderIndex === currentOrder;
+
+              return (
+                <div
+                  key={orderIndex}
+                  className="text-xl font-bold text-white flex flex-row items-center "
+                  style={{
+                    backgroundColor: isCurrentOrder ? "#7abc4f" : "#b0d693",
+                    borderRadius: "20px",
+                    border: "2px solid #a2d083",
+                    padding: "10px",
+                  }}
+                >
+                  <img
+                    src={`/images/user/${order.user}`}
+                    alt={order.user}
+                    className="w-10 h-10"
+                  />
+                  {order.products.map((product, productIndex) => {
+                    const isCurrent =
+                      productIndex === currentProductIndex &&
+                      orderIndex === currentOrder;
+                    const isUsed = cart.includes(product); // Assuming `cart` is an array of added product IDs
+
+                    return (
+                      <div
+                        key={productIndex}
+                        className="flex flex-row items-center h-[20px]"
+                        style={{
+                          opacity: isUsed ? 0.9 : isCurrent ? 1 : 0.2, // Dim past products, highlight the current
+                        }}
+                      >
+                        <img
+                          src={`/images/products/${product}.png`}
+                          alt={product}
+                          style={{
+                            height: "40px",
+                          }}
+                          className="m-1"
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        {/* Bottom Cart */}
+        <div className="fixed bottom-0 w-full h-[170px] bg-center bg-no-repeat">
+          <img
+            src="/images/cart-bg.png"
+            alt=""
+            style={{
+              objectPosition: "center",
+              position: "absolute",
+            }}
+          />
+          <img
+            ref={cartRef}
+            src="/images/empty-cart.png"
+            alt="Cart"
+            className="absolute  w-[100px] h-[100px] z-2"
+            style={{
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          />
+        </div>
+      </div>
+    </HeaderGame>
   );
 };
