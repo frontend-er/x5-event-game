@@ -10,11 +10,25 @@ const ROW_TYPES = {
     products: ["water-1", "water-2", "water-3", "water-4", "water-5"],
   },
   fruits: {
-    title: "Овощи и фрукты",
+    title: "Фрукты",
     bgImage: "/images/product-bg.png",
     productImage: "/images/products/",
     cartImage: "/images/products/",
     products: ["fruits-1", "fruits-2", "fruits-3", "fruits-4"],
+  },
+  drinks2: {
+    title: "Газировки",
+    bgImage: "/images/product-bg.png",
+    productImage: "/images/products/",
+    cartImage: "/images/products/",
+    products: ["water-6", "water-7", "water-8"],
+  },
+  fruits2: {
+    title: "Овощи и фрукты",
+    bgImage: "/images/product-bg.png",
+    productImage: "/images/products/",
+    cartImage: "/images/products/",
+    products: ["fruits-5", "fruits-6", "fruits-7"],
   },
   snacks: {
     title: "Закуски",
@@ -22,6 +36,20 @@ const ROW_TYPES = {
     productImage: "/images/products/",
     cartImage: "/images/products/",
     products: ["snacks-1", "snacks-2", "snacks-3", "snacks-4"],
+  },
+  ice: {
+    title: "Заморозка",
+    bgImage: "/images/product-bg.png",
+    productImage: "/images/products/",
+    cartImage: "/images/products/",
+    products: ["ice-1", "ice-2", "ice-3", "ice-4", "ice-5"],
+  },
+  food: {
+    title: "Закуски",
+    bgImage: "/images/product-bg.png",
+    productImage: "/images/products/",
+    cartImage: "/images/products/",
+    products: ["food-1", "food-2", "food-3", "food-4", "food-5"],
   },
 };
 
@@ -105,7 +133,7 @@ export const ProductRow = ({ type, cartRef, handleProductGameClick }) => {
             <motion.img
               src={`${rowData.cartImage}${productId}.png`}
               initial={{
-                x: productPosition.x - 60,
+                x: productPosition.x - 100,
                 y: productPosition.y,
                 scale: 0.5,
               }}

@@ -6,16 +6,17 @@ export const useGameLogic = (levels, onGameEnd) => {
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [lives, setLives] = useState(3);
   const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(120); // 2 minutes
-  const timerRef = useRef(null);
+  const [timeLeft, setTimeLeft] = useState(levels[currentLevel].time);
   const [cart, setCart] = useState([]);
+  const [levelCompleted, setLevelCompleted] = useState(false); // Флаг завершения уровня
+  const timerRef = useRef(null);
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(timerRef.current);
-          onGameEnd(false); // Game over due to time running out
+          onGameEnd(false);
           return 0;
         }
         return prev - 1;
@@ -26,18 +27,23 @@ export const useGameLogic = (levels, onGameEnd) => {
   }, []);
 
   useEffect(() => {
-    setCart([]); // Очищаем корзину при смене текущего заказа
+    setCart([]);
   }, [currentOrder]);
 
   useEffect(() => {
-    setTimeLeft(120);
-  }, [currentLevel]);
+    if (!levelCompleted) {
+      setTimeLeft(levels[currentLevel].time);
+    }
+  }, [currentLevel, levelCompleted]);
 
   const handleProductGameClick = (product) => {
+    if (levelCompleted) return; // Блокируем клики, если уровень завершён
+
     const order = levels[currentLevel].orders[currentOrder];
     if (product === order.products[currentProductIndex]) {
       setCart((prev) => [...prev, product]);
       setScore((prev) => prev + 10);
+
       if (currentProductIndex + 1 < order.products.length) {
         setCurrentProductIndex(currentProductIndex + 1);
       } else {
@@ -45,25 +51,44 @@ export const useGameLogic = (levels, onGameEnd) => {
           setCurrentOrder(currentOrder + 1);
           setCurrentProductIndex(0);
         } else {
-          if (currentLevel + 1 < levels.length) {
-            setCurrentLevel(currentLevel + 1);
-            setCurrentOrder(0);
-            setCurrentProductIndex(0);
-          } else {
-            clearInterval(timerRef.current);
-            onGameEnd(true); // Game won
-          }
+          setLevelCompleted(true); // Уровень завершён, ждём запуска следующего
+          clearInterval(timerRef.current);
         }
       }
     } else {
       setLives((prev) => {
         if (prev === 1) {
           clearInterval(timerRef.current);
-          onGameEnd(false); // Game over due to lives lost
+          onGameEnd(false);
           return 0;
         }
         return prev - 1;
       });
+    }
+  };
+
+  const handleNextLevelStart = () => {
+    if (!levelCompleted) return;
+
+    if (currentLevel + 1 < levels.length) {
+      setCurrentLevel(currentLevel + 1);
+      setCurrentOrder(0);
+      setCurrentProductIndex(0);
+      setLevelCompleted(false); // Запуск нового уровня
+      setTimeLeft(levels[currentLevel + 1].time);
+
+      timerRef.current = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            clearInterval(timerRef.current);
+            onGameEnd(false);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    } else {
+      onGameEnd(true); // Все уровни пройдены
     }
   };
 
@@ -75,6 +100,8 @@ export const useGameLogic = (levels, onGameEnd) => {
     score,
     timeLeft,
     handleProductGameClick,
+    handleNextLevelStart,
     cart,
+    levelCompleted, // Можно использовать в UI для показа кнопки "Начать следующий уровень"
   };
 };
