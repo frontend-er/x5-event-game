@@ -10,10 +10,13 @@ export default function Leaderboard() {
     const fetchLeaderboard = async () => {
       const snapshot = await getDocs(leaderboardRef);
 
-      const leaderboardData = snapshot.docs.map((doc) => ({
-        email: doc.data().email,
-        score: doc.data().score,
-      }));
+      const leaderboardData = snapshot.docs
+        .map((doc) => ({
+          email: doc.data().email,
+          score: doc.data().score,
+        }))
+        .sort((a, b) => b.score - a.score);
+
       setLeaderboard(leaderboardData);
     };
 
@@ -21,18 +24,32 @@ export default function Leaderboard() {
   }, []);
 
   return (
-    <div>
+    <div className="  text-white">
       <Header>
-        <div className=" text-white flex flex-col items-center justify-center px-4">
-          <h2 className="text-center text-2xl font-semibold">Leaderboard</h2>
-          <ul className="space-y-4 text-center">
-            {leaderboard.map((user, index) => (
-              <li key={index} className="flex justify-between">
-                <span className="font-semibold">{user.email}</span>
-                <span>{user.score}</span>
-              </li>
-            ))}
-          </ul>
+        <div className="flex flex-col items-center justify-center py-8 px-4">
+          <h2 className="text-3xl font-bold mb-6">Таблица лидеров</h2>
+          <div className="overflow-x-auto max-w-4xl w-full mx-auto">
+            <table className="table-auto w-full text-center bg-black/50 rounded-lg shadow-lg">
+              <thead>
+                <tr className="text-lg border-b-2 ">
+                  <th className="py-3 px-6 text-left">Емайл</th>
+                  <th className="py-3 px-6">Счет</th>
+                </tr>
+              </thead>
+              <tbody>
+                {leaderboard
+                  .filter((i) => i.email)
+                  .map((user, index) => (
+                    <tr key={index} className={` border-b border-gray-600`}>
+                      <td className="py-3 px-6 text-left text-white">
+                        {user.email}
+                      </td>
+                      <td className="py-3 px-6 text-white">{user.score}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </Header>
     </div>

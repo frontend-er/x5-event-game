@@ -1,17 +1,27 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 // eslint-disable-next-line react/prop-types
 export const Header = ({ children }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const auth = getAuth(); // Get Firebase auth instance
 
   const handleLogout = async () => {
     try {
-      await signOut(auth); // Sign out user
-      navigate("/login"); // Redirect to login page after successful logout
+      await signOut(auth).then(() => {
+        localStorage.clear();
+
+        // Clear cookies
+        const cookies = document.cookie.split(";"); // Get all cookies
+        cookies.forEach((cookie) => {
+          const cookieName = cookie.split("=")[0].trim();
+          document.cookie = `${cookieName}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`; // Set expiration date to past
+        });
+
+        navigate("/login"); // Redirect to login page after successful logout
+      });
     } catch (error) {
       console.error("Logout failed", error);
     }
@@ -83,12 +93,19 @@ export const Header = ({ children }) => {
               >
                 Мои данные
               </li>
-              {currentUser && (
+              {currentUser ? (
                 <li
                   className="text-lg font-medium cursor-pointer"
                   onClick={handleLogout} // Use handleLogout here
                 >
                   Выход
+                </li>
+              ) : (
+                <li
+                  className="text-lg font-medium cursor-pointer"
+                  onClick={() => navigate("/login")}
+                >
+                  Вход
                 </li>
               )}
               <li>

@@ -1,16 +1,25 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 // eslint-disable-next-line react/prop-types
 export const HeaderGame = ({ children }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const auth = getAuth(); // Get Firebase auth instance
 
   const handleLogout = async () => {
     try {
       await signOut(auth); // Sign out user
+      localStorage.clear(); // Clear local storage
+
+      // Clear cookies
+      const cookies = document.cookie.split(";"); // Get all cookies
+      cookies.forEach((cookie) => {
+        const cookieName = cookie.split("=")[0].trim();
+        document.cookie = `${cookieName}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`; // Set expiration date to past
+      });
+
       navigate("/login"); // Redirect to login page after successful logout
     } catch (error) {
       console.error("Logout failed", error);

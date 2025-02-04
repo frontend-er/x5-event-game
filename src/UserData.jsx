@@ -7,56 +7,65 @@ import { onAuthStateChanged } from "firebase/auth";
 export default function UserData() {
   const [userEmail, setUserEmail] = useState("");
   const [userScore, setUserScore] = useState(0);
+  const [userLocation, setUserLocation] = useState("");
+  const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // Fetch the authenticated user's email and score
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // User is signed in
-        setUserEmail(user.email); // Set the user's email
+        setUserEmail(user.email);
 
-        // Fetch the user's score from Firestore
         const userDocRef = doc(leaderboardRef, user.email);
         const docSnap = await getDoc(userDocRef);
 
         if (docSnap.exists()) {
-          setUserScore(docSnap.data().score); // Set the user's score
+          setUserScore(docSnap.data().score);
+          setUserLocation(docSnap.data().location);
+          setUserName(docSnap.data().name);
         } else {
-          setUserScore(0); // Default score if no record exists
+          setUserScore(0);
         }
       } else {
-        // User is signed out
-        setUserEmail(""); // Clear the email
-        setUserScore(0); // Clear the score
+        setUserEmail("");
+        setUserScore(0);
       }
-      setLoading(false); // Stop loading
+      setLoading(false);
     });
 
-    return () => unsubscribe(); // Cleanup the observer on unmount
+    return () => unsubscribe();
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>; // Show a loading state
+    return <div>Loading...</div>;
   }
 
   return (
-    <div>
+    <div className=" text-white">
       <Header>
-        <div className="text-white flex flex-col items-center justify-center px-4">
-          <h2 className="text-center text-2xl font-semibold">
+        <div className="flex flex-col items-center justify-center py-12 px-4">
+          <h2 className="text-3xl font-semibold mb-6 text-center ">
             Мои данные и счет
           </h2>
-          <ul className="space-y-4 text-center">
-            <li className="flex justify-between">
-              <span className="font-semibold">Email:</span>
-              <span>{userEmail}</span>
-            </li>
-            <li className="flex justify-between">
-              <span className="font-semibold">Счет:</span>
-              <span>{userScore}</span>
-            </li>
-          </ul>
+          <div className="bg-black/50 px-5 py-5 rounded-lg shadow-lg w-full max-w-lg mx-auto">
+            <ul className="space-y-2">
+              <li className="flex justify-between items-center border-b border-white py-2">
+                <span className="font-semibold text-lg">{userName}</span>
+              </li>
+              <li className="flex flex-row  gap-1.5 items-center py-2">
+                <span className="font-semibold text-lg">Счет:</span>
+                <span className="text-md">{userScore}</span>
+              </li>
+              <li className="flex  flex-col justify-start items-start py-2">
+                <span className="font-semibold text-lg">Email:</span>
+                <span className="text-md">{userEmail}</span>
+              </li>
+              <li className="flex  flex-col justify-start items-start  py-2">
+                <span className="font-semibold text-lg">Даркстор:</span>
+                <span className="text-md">{userLocation}</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </Header>
     </div>

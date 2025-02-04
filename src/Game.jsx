@@ -200,15 +200,15 @@ const levels = [
       },
       {
         user: "user-1.png",
-        products: ["ice-1", "ice-5", "fruits-1", "water-6", "ice-5"],
+        products: ["ice-1", "ice-5", "fruits-1", "water-6", "ice-3"],
       },
       {
-        user: "user-4.png",
-        products: ["ice-4", "snacks-1", "snacks-2", "ice-1", "water-2"],
+        user: "user-1.png",
+        products: ["ice-1", "ice-5", "fruits-1", "water-6", "ice-2"],
       },
       {
         user: "user-3.png",
-        products: ["fruits-2", "water-8", "ice-5", "fruits-1", "fruits-2"],
+        products: ["fruits-2", "water-8", "ice-5", "fruits-1", "fruits-4"],
       },
       {
         user: "user-5.png",
@@ -216,7 +216,7 @@ const levels = [
       },
       {
         user: "user-3.png",
-        products: ["water-1", "snacks-2", "ice-4", "fruits-2", "fruits-2"],
+        products: ["water-1", "snacks-2", "ice-4", "fruits-1", "fruits-2"],
       },
       {
         user: "user-3.png",
@@ -233,6 +233,170 @@ const levels = [
       {
         user: "user-1.png",
         products: ["ice-5", "ice-4", "ice-3", "ice-2", "ice-1"],
+      },
+    ],
+  },
+  {
+    name: "День 7",
+    time: 80,
+    orders: [
+      {
+        user: "user-2.png",
+        products: ["ice-1", "water-1", "snacks-2", "food-1", "ice-3"],
+      },
+      {
+        user: "user-1.png",
+        products: ["ice-1", "ice-5", "food-1", "water-3", "food-4"],
+      },
+      {
+        user: "user-4.png",
+        products: ["food-2", "snacks-1", "snacks-2", "ice-1", "water-2"],
+      },
+      {
+        user: "user-3.png",
+        products: ["fruits-2", "food-3", "ice-5", "food-1", "food-4"],
+      },
+      {
+        user: "user-5.png",
+        products: ["food-4", "fruits-2", "water-8", "ice-3", "ice-1"],
+      },
+    ],
+  },
+  {
+    name: "День 8",
+    time: 80,
+    orders: [
+      {
+        user: "user-5.png",
+        products: ["food-4", "fruits-2", "ice-3", "ice-1"],
+      },
+      {
+        user: "user-2.png",
+        products: ["ice-1", "snacks-2", "food-1", "ice-3"],
+      },
+      {
+        user: "user-1.png",
+        products: ["ice-5", "food-1", "food-5", "snacks-4"],
+      },
+      {
+        user: "user-4.png",
+        products: ["food-2", "snacks-2", "ice-1", "water-2"],
+      },
+      {
+        user: "user-3.png",
+        products: ["fruits-2", "food-3", "food-1", "food-4"],
+      },
+      {
+        user: "user-5.png",
+        products: ["food-4", "water-3", "ice-3", "ice-1"],
+      },
+      {
+        user: "user-5.png",
+        products: ["food-4", "fruits-2", "ice-3", "ice-1"],
+      },
+    ],
+  },
+  {
+    name: "День 9",
+    time: 70,
+    orders: [
+      {
+        user: "user-5.png",
+        products: ["food-4", "fruits-2", "ice-3", "ice-1", "food-1"],
+      },
+      {
+        user: "user-2.png",
+        products: ["ice-1", "snacks-2", "food-1", "ice-3", "water-2"],
+      },
+      {
+        user: "user-1.png",
+        products: ["ice-1", "ice-5", "food-1", "snacks-4", "water-3"],
+      },
+      {
+        user: "user-4.png",
+        products: ["food-2", "snacks-2", "ice-1", "water-2", "water-8"],
+      },
+      {
+        user: "user-3.png",
+        products: ["fruits-2", "food-3", "food-1", "food-4", "ice-3"],
+      },
+      {
+        user: "user-5.png",
+        products: ["food-4", "water-8", "ice-3", "ice-1", "food-1"],
+      },
+      {
+        user: "user-1.png",
+        products: ["snacks-4", "fruits-2", "ice-1", "ice-2", "food-1"],
+      },
+      {
+        user: "user-3.png",
+        products: ["food-5", "fruits-1", "ice-3", "ice-1", "food-1"],
+      },
+      {
+        user: "user-2.png",
+        products: ["food-5", "fruits-2", "snacks-3", "snacks-1", "food-1"],
+      },
+      {
+        user: "user-4.png",
+        products: ["snacks-4", "snacks-2", "ice-4", "water-3", "fruits-7"],
+      },
+      {
+        user: "user-3.png",
+        products: ["water-5", "food-1", "water-1", "food-4", "fruits-3"],
+      },
+    ],
+  },
+  {
+    name: "День 10",
+    time: 70,
+    orders: [
+      {
+        user: "user-5.png",
+        products: ["food-4", "fruits-2", "ice-3", "ice-1", "food-1"],
+      },
+      {
+        user: "user-2.png",
+        products: ["ice-1", "snacks-2", "food-1", "ice-3", "water-2"],
+      },
+      {
+        user: "user-1.png",
+        products: ["ice-1", "ice-5", "food-1", "fruits-5", "water-3"],
+      },
+      {
+        user: "user-4.png",
+        products: ["food-2", "snacks-2", "ice-1", "water-2", "water-8"],
+      },
+      {
+        user: "user-3.png",
+        products: ["fruits-2", "food-3", "food-1", "food-4", "ice-3"],
+      },
+      {
+        user: "user-5.png",
+        products: ["food-4", "water-8", "ice-3", "ice-1", "food-1"],
+      },
+      {
+        user: "user-1.png",
+        products: ["snacks-4", "fruits-2", "ice-1", "ice-2", "food-1"],
+      },
+      {
+        user: "user-3.png",
+        products: ["food-5", "fruits-1", "ice-3", "ice-1", "food-1"],
+      },
+      {
+        user: "user-2.png",
+        products: ["food-5", "fruits-2", "ice-3", "ice-1", "food-1"],
+      },
+      {
+        user: "user-4.png",
+        products: ["snacks-4", "snacks-2", "ice-4", "water-2", "water-8"],
+      },
+      {
+        user: "user-3.png",
+        products: ["water-5", "food-1", "water-1", "food-4", "fruits-3"],
+      },
+      {
+        user: "user-3.png",
+        products: ["ice-2", "food-5", "water-3", "fruits-1", "snacks-4"],
       },
     ],
   },
@@ -324,6 +488,33 @@ export const Game = () => {
     return order.products.every((product) => cart.includes(product));
   };
 
+  if (levelCompleted && currentLevel === 9) {
+    return (
+      <HeaderGame>
+        <div
+          style={{
+            marginTop: "110px",
+          }}
+          className="flex flex-col h-screen w-screen"
+        >
+          <div className="flex flex-col items-center justify-center h-full gap-1">
+            <div className="text-4xl font-bold">Поздравляем</div>
+            <div className="text-2xl font-bold">Твой счет {score}</div>
+            <button
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-5"
+              onClick={() => handleNextLevelStart()}
+            >
+              Начать заново
+            </button>
+            <i className="text-sx font-medium font- text-blue-100 font-bold mt-5 flex flex-col items-center justify-center text-center ">
+              Знай что ты можешь лучше! <br /> Но счет не сохранится!
+            </i>
+          </div>
+        </div>
+      </HeaderGame>
+    );
+  }
+
   if (levelCompleted) {
     return (
       <HeaderGame>
@@ -349,7 +540,7 @@ export const Game = () => {
   }
 
   if (gameOver) {
-    if (lives === 0 || timeLeft === 0 || currentLevel === 10) {
+    if (lives === 0 || timeLeft === 0 || currentLevel === 9) {
       return (
         <HeaderGame>
           <div

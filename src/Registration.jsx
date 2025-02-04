@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "./firebase";
+import { auth, leaderboardRef } from "./firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
 import { Header } from "./components/Header";
 
 export default function Registration() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: "", name: "", password: "" });
+  const [form, setForm] = useState({
+    email: "",
+    name: "",
+    password: "",
+    location: "",
+  });
   const [error, setError] = useState("");
   const [user, setUser] = useState(null);
+  const locations = ["Саларьево", "Вешки", "Троицкий", "Другой даркстор"];
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,7 +27,7 @@ export default function Registration() {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [auth]);
 
   useEffect(() => {
     if (user) {
@@ -33,7 +40,31 @@ export default function Registration() {
     setError("");
 
     try {
-      await createUserWithEmailAndPassword(auth, form.email, form.password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        form.email,
+        form.password
+      );
+      const currentUser = userCredential.user;
+
+      const saveUser = async () => {
+        if (currentUser) {
+          const userDocRef = doc(leaderboardRef, currentUser.email);
+          await setDoc(
+            userDocRef,
+            {
+              name: form.name,
+              location: form.location,
+              email: form.email,
+              score: 0,
+            },
+            { merge: true }
+          );
+        }
+      };
+
+      await saveUser();
+
       navigate("/game"); // Redirect to menu on success
     } catch (err) {
       setError(err.message);
@@ -70,6 +101,21 @@ export default function Registration() {
               onChange={handleChange}
               className="w-full bg-gray-600 text-white placeholder-gray-400 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
+            <select
+              name="location"
+              value={form.location}
+              onChange={handleChange}
+              className="w-full bg-gray-600 text-white placeholder-gray-400 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+              <option value="" disabled>
+                Выберите локацию
+              </option>
+              {locations.map((location, index) => (
+                <option key={index} value={location}>
+                  {location}
+                </option>
+              ))}
+            </select>
             <input
               type="password"
               name="password"
@@ -85,7 +131,7 @@ export default function Registration() {
               Регистрация
             </button>
             <button
-              type="submit"
+              type="button"
               className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600"
               onClick={() => navigate("/login")}
             >

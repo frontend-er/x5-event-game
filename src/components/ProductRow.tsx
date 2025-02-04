@@ -45,7 +45,7 @@ const ROW_TYPES = {
     products: ["ice-1", "ice-2", "ice-3", "ice-4", "ice-5"],
   },
   food: {
-    title: "Закуски",
+    title: "Бакалея",
     bgImage: "/images/product-bg.png",
     productImage: "/images/products/",
     cartImage: "/images/products/",

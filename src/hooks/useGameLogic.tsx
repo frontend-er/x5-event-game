@@ -8,7 +8,7 @@ export const useGameLogic = (levels, onGameEnd) => {
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(levels[currentLevel].time);
   const [cart, setCart] = useState([]);
-  const [levelCompleted, setLevelCompleted] = useState(false); // Флаг завершения уровня
+  const [levelCompleted, setLevelCompleted] = useState(false);
   const timerRef = useRef(null);
 
   useEffect(() => {
