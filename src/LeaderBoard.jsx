@@ -24,15 +24,19 @@ export default function Leaderboard() {
   }, []);
 
   return (
-    <div className="  text-white">
+    <div className="text-white">
       <Header>
-        <div className="flex flex-col items-center justify-center py-8 px-4">
+        <div
+          style={{
+            height: "calc(100dvh - 200px)",
+          }}
+          className="flex flex-col items-center justify-center py-8 px-4"
+        >
           <h2 className="text-3xl font-bold mb-6">Таблица лидеров</h2>
           <div
             className="overflow-x-auto max-w-4xl w-full mx-auto"
             style={{
               overflow: "scroll",
-              maxHeight: "60vh",
             }}
           >
             <table className="table-auto w-full text-center bg-black/50 rounded-lg shadow-lg">

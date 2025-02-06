@@ -24,9 +24,11 @@ const GameStart = () => {
     <div>
       <HeaderGame>
         <div
-          className="flex flex-col w-screen gap-5 h-screen p-5 overflow-auto"
+          className="flex flex-col w-screen gap-5 p-5 "
           style={{
-            marginTop: "110px",
+            height: "calc(100dvh - 200px)", // Uses dynamic viewport height, fixing Safari issues
+            overflow: "scroll",
+            marginTop: "0px",
           }}
         >
           <h1
@@ -113,7 +115,7 @@ const GameStart = () => {
             {currentUser && (
               <div>
                 <button
-                  className="bg-green-500 text-white py-3 px-8 rounded-lg font-semibold hover:bg-green-600 mb-10"
+                  className="bg-green-500 text-white py-3 px-8 rounded-lg font-semibold hover:bg-green-600 "
                   style={{
                     marginTop: "20px",
                     backgroundColor: "#e151a1",

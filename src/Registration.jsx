@@ -74,7 +74,12 @@ export default function Registration() {
   return (
     <div className="text-white flex flex-col items-center justify-center px-4">
       <Header>
-        <div className="mt-8 w-full max-w-md bg-black/50 rounded-xl p-6 shadow-lg">
+        <div
+          style={{
+            height: "calc(100dvh - 200px)",
+          }}
+          className="w-full max-w-md bg-black/50 rounded-xl p-6 shadow-lg overflow-scroll mt-[120px] mb-[120px] h-full"
+        >
           <h2
             className="text-2xl font-semibold mb-4"
             style={{

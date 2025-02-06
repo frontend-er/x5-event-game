@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 const levels = [
   {
     name: "День 1",
-    time: 70,
+    time: 90,
     orders: [
       {
         user: "user-1.png",
@@ -37,7 +37,7 @@ const levels = [
   },
   {
     name: "День 2",
-    time: 70,
+    time: 90,
     orders: [
       {
         user: "user-1.png",
@@ -75,7 +75,7 @@ const levels = [
   },
   {
     name: "День 3",
-    time: 70,
+    time: 90,
     orders: [
       {
         user: "user-1.png",
@@ -125,7 +125,7 @@ const levels = [
   },
   {
     name: "День 4",
-    time: 70,
+    time: 90,
     orders: [
       {
         user: "user-2.png",
@@ -155,7 +155,7 @@ const levels = [
   },
   {
     name: "День 5",
-    time: 70,
+    time: 90,
     orders: [
       {
         user: "user-2.png",
@@ -193,7 +193,7 @@ const levels = [
   },
   {
     name: "День 6",
-    time: 70,
+    time: 90,
     orders: [
       {
         user: "user-2.png",
@@ -239,7 +239,7 @@ const levels = [
   },
   {
     name: "День 7",
-    time: 70,
+    time: 90,
     orders: [
       {
         user: "user-2.png",
@@ -265,7 +265,7 @@ const levels = [
   },
   {
     name: "День 8",
-    time: 70,
+    time: 90,
     orders: [
       {
         user: "user-5.png",
@@ -299,7 +299,7 @@ const levels = [
   },
   {
     name: "День 9",
-    time: 70,
+    time: 90,
     orders: [
       {
         user: "user-5.png",
@@ -349,7 +349,7 @@ const levels = [
   },
   {
     name: "День 10",
-    time: 70,
+    time: 90,
     orders: [
       {
         user: "user-5.png",
@@ -496,12 +496,13 @@ export const Game = () => {
       <HeaderGame>
         <div
           style={{
-            marginTop: "110px",
+            height: "calc(100dvh - 200px)",
+            marginTop: "20px",
           }}
           className="flex flex-col w-screen"
         >
           <div
-            className="flex flex-col items-center mt-[-250px]"
+            className="flex flex-col items-center"
             style={{
               zIndex: 2,
             }}
@@ -599,9 +600,10 @@ export const Game = () => {
         <HeaderGame>
           <div
             style={{
-              marginTop: "110px",
+              height: "calc(100dvh - 200px)",
+              marginTop: "20px",
             }}
-            className="flex flex-col h-screen w-screen"
+            className="flex flex-col  w-screen"
           >
             <div
               className="flex flex-col items-center justify-center mt-12 gap-1"
@@ -704,9 +706,10 @@ export const Game = () => {
         <HeaderGame>
           <div
             style={{
-              marginTop: "110px",
+              height: "calc(100dvh - 200px)",
+              marginTop: "20px",
             }}
-            className="flex flex-col h-screen w-screen"
+            className="flex flex-col  w-screen"
           >
             <div
               className="flex flex-col items-center justify-center mt-12 gap-1"
@@ -809,9 +812,10 @@ export const Game = () => {
         <HeaderGame>
           <div
             style={{
-              marginTop: "110px",
+              height: "calc(100dvh - 200px)",
+              marginTop: "20px",
             }}
-            className="flex flex-col h-screen w-screen"
+            className="flex flex-col  w-screen"
           >
             <div className="flex flex-col items-center justify-center h-full gap-1">
               <div
@@ -842,9 +846,10 @@ export const Game = () => {
         <HeaderGame>
           <div
             style={{
-              marginTop: "110px",
+              height: "calc(100dvh - 200px)",
+              marginTop: "20px",
             }}
-            className="flex flex-col h-screen w-screen"
+            className="flex flex-col w-screen"
           >
             <div className="flex flex-col items-center justify-center h-full">
               <div
@@ -876,97 +881,32 @@ export const Game = () => {
         <HeaderGame>
           <div
             style={{
-              marginTop: "110px",
+              height: "calc(100dvh - 200px)",
+              marginTop: "20px",
             }}
             className="flex flex-col w-screen"
           >
-            <div
-              className="flex flex-col items-center mt-[-250px]"
-              style={{
-                zIndex: 2,
-              }}
-            >
-              <div>
-                <img
-                  style={{
-                    position: "absolute",
-                    top: "0",
-                    right: "0",
-                    width: "150px",
-                    zIndex: "0",
-                  }}
-                  src="/images/happy.png"
-                  alt=""
-                />
-                <img
-                  style={{
-                    position: "absolute",
-                    top: "0",
-                    left: "0",
-                    width: "150px",
-                    zIndex: "0",
-                  }}
-                  src="/images/happy2.png"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  src="/images/win.png"
-                  alt=""
-                  style={{
-                    width: "150px",
-                  }}
-                />
-              </div>
+            <div className="flex flex-col items-center justify-center h-full">
               <div
                 className="text-4xl font-bold"
                 style={{
                   fontFamily: "Sans-Bold",
-                  marginTop: "20px",
                 }}
               >
-                Победа! 🎉
+                Game Over
               </div>
-              <div className="text-xl font-bold mt-2">
+              <div className="text-xl font-bold">
                 Твой счет {userScore !== null ? userScore : score}
               </div>
               <button
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-5"
                 onClick={() => window.location.reload()}
               >
-                Попробывать заново
+                Начать заново
               </button>
-
               <i className="text-sx font-medium font- text-blue-100 font-bold mt-5 flex flex-col items-center justify-center text-center ">
                 Знай что ты можешь лучше! <br /> Но счет не сохранится!
               </i>
-            </div>
-            <div>
-              <div>
-                <img
-                  style={{
-                    position: "absolute",
-                    bottom: "0",
-                    right: "0",
-                    width: "150px",
-                    zIndex: "0",
-                  }}
-                  src="/images/worker2.png"
-                  alt=""
-                />
-                <img
-                  style={{
-                    position: "absolute",
-                    bottom: "0",
-                    left: "0",
-                    width: "150px",
-                    zIndex: "0",
-                  }}
-                  src="/images/worker.png"
-                  alt=""
-                />
-              </div>
             </div>
           </div>
         </HeaderGame>
@@ -985,9 +925,10 @@ export const Game = () => {
   return (
     <HeaderGame>
       <div
-        className="flex flex-col w-screen h-screen "
+        className="flex flex-col w-screen  "
         style={{
-          marginTop: "110px",
+          height: "calc(100dvh - 200px)",
+          marginTop: "20px",
           backgroundColor: "#E6F0D7",
         }}
       >
@@ -1053,7 +994,7 @@ export const Game = () => {
         <div
           className="flex-1 overflow-y-auto overflow-x-hidden"
           style={{
-            marginBottom: "380px",
+            marginBottom: "190px",
             backgroundColor: "#E6F0D7",
           }}
         >

@@ -28,7 +28,7 @@ export const useGameLogic = (levels, onGameEnd) => {
 
   useEffect(() => {
     setCart([]);
-  }, [currentOrder]);
+  }, [currentOrder, currentLevel]);
 
   useEffect(() => {
     if (!levelCompleted) {
