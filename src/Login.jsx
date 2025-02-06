@@ -31,7 +31,7 @@ export default function Login() {
 
   useEffect(() => {
     if (user) {
-      navigate("/game");
+      navigate("/gameStart");
     }
   }, [user]);
 
@@ -40,7 +40,12 @@ export default function Login() {
       <Header>
         <div className="min-h-screen bg-gradient-to-br from-blue-900 via-green-900 to-black text-white flex flex-col items-center justify-center px-4">
           <div className="mt-8 w-full max-w-md bg-black/50 rounded-xl p-6 shadow-lg">
-            <h2 className="text-2xl font-semibold mb-4">
+            <h2
+              className="text-2xl font-semibold mb-4"
+              style={{
+                fontFamily: "Sans-Bold",
+              }}
+            >
               Логин <span className="text-green-400">Account</span>
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">

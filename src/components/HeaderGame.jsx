@@ -43,8 +43,13 @@ export const HeaderGame = ({ children }) => {
   return (
     <>
       <header className="flex items-center justify-between absolute top-0 left-0 right-0 p-4 border-1 border-gray-500 m-5 rounded-2xl">
-        <div className="flex items-center space-x-2s">
-          <img src="/images/logo-x5.png" alt="logo" />
+        <div className="flex items-center space-x-2s gap-1">
+          <img src="/images/logo-x5.png" alt="logo" className="w-[120px]" />
+          <img
+            className="w-[120px]"
+            src="https://www.vprok.ru/src/upload/full/image/36/02/320236.svg"
+            alt="logo Vprok.ru"
+          ></img>
         </div>
         {!open ? (
           <button
@@ -103,7 +108,7 @@ export const HeaderGame = ({ children }) => {
               <li>
                 <button
                   className="bg-transparent text-white py-3 px-8 rounded-lg font-semibold hover:bg-green-600"
-                  onClick={() => navigate("/game")}
+                  onClick={() => navigate("/gameStart")}
                 >
                   Играть
                 </button>

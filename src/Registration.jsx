@@ -31,7 +31,7 @@ export default function Registration() {
 
   useEffect(() => {
     if (user) {
-      navigate("/game");
+      navigate("/gameStart");
     }
   }, [user]);
 
@@ -65,7 +65,7 @@ export default function Registration() {
 
       await saveUser();
 
-      navigate("/game"); // Redirect to menu on success
+      navigate("/gameStart");
     } catch (err) {
       setError(err.message);
     }
@@ -75,7 +75,12 @@ export default function Registration() {
     <div className="text-white flex flex-col items-center justify-center px-4">
       <Header>
         <div className="mt-8 w-full max-w-md bg-black/50 rounded-xl p-6 shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2
+            className="text-2xl font-semibold mb-4"
+            style={{
+              fontFamily: "Sans-Bold",
+            }}
+          >
             Регистрация{" "}
             <span className="text-green-400">
               {" "}
@@ -137,6 +142,39 @@ export default function Registration() {
             >
               Уже есть аккаунт? Войти
             </button>
+            <div>
+              <input
+                className="mr-4"
+                type="checkbox"
+                id="terms"
+                name="terms"
+                required
+              />
+              <label htmlFor="terms" className="text-white">
+                Я даю согласие на обработку моих данных в соответствии с{" "}
+                <a
+                  href="https://x5staff.ru/konfidence/"
+                  className="text-green-400"
+                >
+                  Политикой конфиденциальности
+                </a>
+              </label>
+            </div>
+            <div>
+              <input
+                className="mr-4"
+                type="checkbox"
+                id="terms"
+                name="terms"
+                required
+              />
+              <label htmlFor="terms" className="text-white">
+                Я соглашаюсь с
+                <a href="/gameStart" className="text-white ml-1">
+                  правилами игры
+                </a>
+              </label>
+            </div>
           </form>
         </div>
       </Header>

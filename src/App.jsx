@@ -9,6 +9,7 @@ import Login from "./Login";
 import Leaderboard from "./LeaderBoard";
 import { Game } from "./Game";
 import UserData from "./UserData";
+import GameStart from "./GameStart";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
           <Route path="*" element={<div>404</div>} />
 
           <Route path="/game" element={<Game />} />
+
+          <Route path="/gameStart" element={<GameStart />} />
         </Routes>
       </div>
     </Router>

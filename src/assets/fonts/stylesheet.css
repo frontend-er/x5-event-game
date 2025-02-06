@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'X5 Sans';
+    src: url('X5Sans-Regular.eot');
+    src: local('X5 Sans'), local('X5Sans-Regular'),
+        url('X5Sans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('X5Sans-Regular.woff2') format('woff2'),
+        url('X5Sans-Regular.woff') format('woff'),
+        url('X5Sans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'X5 Sans';
+    src: url('X5Sans-Light.eot');
+    src: local('X5 Sans Light'), local('X5Sans-Light'),
+        url('X5Sans-Light.eot?#iefix') format('embedded-opentype'),
+        url('X5Sans-Light.woff2') format('woff2'),
+        url('X5Sans-Light.woff') format('woff'),
+        url('X5Sans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'X5 Sans';
+    src: url('X5Sans-Medium.eot');
+    src: local('X5 Sans Medium'), local('X5Sans-Medium'),
+        url('X5Sans-Medium.eot?#iefix') format('embedded-opentype'),
+        url('X5Sans-Medium.woff2') format('woff2'),
+        url('X5Sans-Medium.woff') format('woff'),
+        url('X5Sans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'X5 Sans';
+    src: url('X5Sans-Bold.eot');
+    src: local('X5 Sans Bold'), local('X5Sans-Bold'),
+        url('X5Sans-Bold.eot?#iefix') format('embedded-opentype'),
+        url('X5Sans-Bold.woff2') format('woff2'),
+        url('X5Sans-Bold.woff') format('woff'),
+        url('X5Sans-Bold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+

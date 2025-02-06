@@ -1,7 +1,39 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Sans-Regular';
+  src: url('/src/assets/fonts/X5Sans-Regular.woff2') format('woff2'),
+       url('/src/assets/fonts/X5Sans-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sans-Bold';
+  src: url('/src/assets/fonts/X5Sans-Bold.woff2') format('woff2'),
+       url('/src/assets/fonts/X5Sans-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sans-Light';
+  src: url('/src/assets/fonts/X5Sans-Light.woff2') format('woff2'),
+       url('/src/assets/fonts/X5Sans-Light.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sans-Medium';
+  src: url('/src/assets/fonts/X5Sans-Medium.woff2') format('woff2'),
+       url('/src/assets/fonts/X5Sans-Medium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
-  font-family: "Montserrat Alternates", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Sans-Regular", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -14,6 +46,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
 
 a {
   font-weight: 500;
@@ -45,7 +79,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #e151a1;
   cursor: pointer;
   transition: border-color 0.25s;
 }

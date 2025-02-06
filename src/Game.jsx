@@ -6,11 +6,12 @@ import { HeaderGame } from "./components/HeaderGame";
 import { ProductRow } from "./components/ProductRow";
 import { useGameLogic } from "./hooks/useGameLogic";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const levels = [
   {
     name: "День 1",
-    time: 120,
+    time: 70,
     orders: [
       {
         user: "user-1.png",
@@ -36,7 +37,7 @@ const levels = [
   },
   {
     name: "День 2",
-    time: 120,
+    time: 70,
     orders: [
       {
         user: "user-1.png",
@@ -74,7 +75,7 @@ const levels = [
   },
   {
     name: "День 3",
-    time: 120,
+    time: 70,
     orders: [
       {
         user: "user-1.png",
@@ -124,7 +125,7 @@ const levels = [
   },
   {
     name: "День 4",
-    time: 110,
+    time: 70,
     orders: [
       {
         user: "user-2.png",
@@ -154,7 +155,7 @@ const levels = [
   },
   {
     name: "День 5",
-    time: 110,
+    time: 70,
     orders: [
       {
         user: "user-2.png",
@@ -192,7 +193,7 @@ const levels = [
   },
   {
     name: "День 6",
-    time: 110,
+    time: 70,
     orders: [
       {
         user: "user-2.png",
@@ -238,7 +239,7 @@ const levels = [
   },
   {
     name: "День 7",
-    time: 80,
+    time: 70,
     orders: [
       {
         user: "user-2.png",
@@ -264,7 +265,7 @@ const levels = [
   },
   {
     name: "День 8",
-    time: 80,
+    time: 70,
     orders: [
       {
         user: "user-5.png",
@@ -408,6 +409,7 @@ export const Game = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const cartRef = useRef(null);
   const [gameOver, setGameOver] = useState(false);
+  const navigate = useNavigate();
 
   const onGameEnd = () => {
     setGameOver(true);
@@ -489,26 +491,102 @@ export const Game = () => {
   };
 
   if (levelCompleted && currentLevel === 9) {
+    incrementScore(score);
     return (
       <HeaderGame>
         <div
           style={{
             marginTop: "110px",
           }}
-          className="flex flex-col h-screen w-screen"
+          className="flex flex-col w-screen"
         >
-          <div className="flex flex-col items-center justify-center h-full gap-1">
-            <div className="text-4xl font-bold">Поздравляем</div>
-            <div className="text-2xl font-bold">Твой счет {score}</div>
+          <div
+            className="flex flex-col items-center mt-[-250px]"
+            style={{
+              zIndex: 2,
+            }}
+          >
+            <div>
+              <img
+                style={{
+                  position: "absolute",
+                  top: "0",
+                  right: "0",
+                  width: "150px",
+                  zIndex: "0",
+                }}
+                src="/images/happy.png"
+                alt=""
+              />
+              <img
+                style={{
+                  position: "absolute",
+                  top: "0",
+                  left: "0",
+                  width: "150px",
+                  zIndex: "0",
+                }}
+                src="/images/happy2.png"
+                alt=""
+              />
+            </div>
+            <div>
+              <img
+                src="/images/win.png"
+                alt=""
+                style={{
+                  width: "150px",
+                }}
+              />
+            </div>
+            <div
+              className="text-4xl font-bold"
+              style={{
+                fontFamily: "Sans-Bold",
+                marginTop: "20px",
+              }}
+            >
+              Победа! 🎉
+            </div>
+            <div className="text-xl font-bold mt-2">
+              Твой счет {userScore !== null ? userScore : score}
+            </div>
             <button
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-5"
-              onClick={() => handleNextLevelStart()}
+              onClick={() => navigate("/leaderboard")}
             >
-              Начать заново
+              Таблица лидеров
             </button>
+
             <i className="text-sx font-medium font- text-blue-100 font-bold mt-5 flex flex-col items-center justify-center text-center ">
               Знай что ты можешь лучше! <br /> Но счет не сохранится!
             </i>
+          </div>
+          <div>
+            <div>
+              <img
+                style={{
+                  position: "absolute",
+                  bottom: "0",
+                  right: "0",
+                  width: "150px",
+                  zIndex: "0",
+                }}
+                src="/images/worker2.png"
+                alt=""
+              />
+              <img
+                style={{
+                  position: "absolute",
+                  bottom: "0",
+                  left: "0",
+                  width: "150px",
+                  zIndex: "0",
+                }}
+                src="/images/worker.png"
+                alt=""
+              />
+            </div>
           </div>
         </div>
       </HeaderGame>
@@ -516,27 +594,246 @@ export const Game = () => {
   }
 
   if (levelCompleted) {
-    return (
-      <HeaderGame>
-        <div
-          style={{
-            marginTop: "110px",
-          }}
-          className="flex flex-col h-screen w-screen"
-        >
-          <div className="flex flex-col items-center justify-center h-full gap-1">
-            <div className="text-4xl font-bold">День окончен</div>
-            <div className="text-2xl font-bold">Твой счет {score}</div>
-            <button
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-5"
-              onClick={() => handleNextLevelStart()}
+    if (currentLevel === 2) {
+      return (
+        <HeaderGame>
+          <div
+            style={{
+              marginTop: "110px",
+            }}
+            className="flex flex-col h-screen w-screen"
+          >
+            <div
+              className="flex flex-col items-center justify-center mt-12 gap-1"
+              style={{
+                zIndex: 2,
+              }}
             >
-              Следующий день
-            </button>
+              <div
+                className="text-4xl font-bold"
+                style={{
+                  fontFamily: "Sans-Bold",
+                }}
+              >
+                День окончен
+              </div>
+              <div className="text-xl font-bold">Твой счет {score}</div>
+              <div className="text-lg font-bold flex flex-col items-center p-5">
+                <span
+                  style={{
+                    fontFamily: "Sans-Bold",
+                  }}
+                  className="font-semibold"
+                >
+                  Новые товары:
+                </span>
+                <div className="text-center">
+                  добавлены новые товары под прилавком
+                </div>
+                <div
+                  style={{
+                    fontFamily: "Sans-Bold",
+                  }}
+                >
+                  ЗАМОРОЗКА
+                </div>
+                <div className="flex flex-row items-center mt-5">
+                  <img
+                    src="/images/products/ice-1.png"
+                    alt=""
+                    style={{
+                      height: "80px",
+                    }}
+                  />
+                  <img
+                    src="/images/products/ice-2.png"
+                    alt=""
+                    style={{
+                      height: "80px",
+                    }}
+                  />
+                  <img
+                    src="/images/products/ice-3.png"
+                    alt=""
+                    style={{
+                      height: "80px",
+                    }}
+                  />
+                  <img
+                    src="/images/products/ice-4.png"
+                    alt=""
+                    style={{
+                      height: "80px",
+                    }}
+                  />
+                  <img
+                    src="/images/products/ice-5.png"
+                    alt=""
+                    style={{
+                      height: "80px",
+                    }}
+                  />
+                </div>
+              </div>
+
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-5"
+                onClick={() => handleNextLevelStart()}
+              >
+                Следующий день
+              </button>
+            </div>
+            <div>
+              <img
+                style={{
+                  position: "absolute",
+                  bottom: "0",
+                  left: "0",
+                  width: "150px",
+                  zIndex: "0",
+                }}
+                src="/images/worker.png"
+                alt=""
+              />
+            </div>
           </div>
-        </div>
-      </HeaderGame>
-    );
+        </HeaderGame>
+      );
+    } else if (currentLevel === 5) {
+      return (
+        <HeaderGame>
+          <div
+            style={{
+              marginTop: "110px",
+            }}
+            className="flex flex-col h-screen w-screen"
+          >
+            <div
+              className="flex flex-col items-center justify-center mt-12 gap-1"
+              style={{
+                zIndex: 2,
+              }}
+            >
+              <div
+                className="text-4xl font-bold"
+                style={{
+                  fontFamily: "Sans-Bold",
+                }}
+              >
+                День окончен
+              </div>
+              <div className="text-xl font-bold">Твой счет {score}</div>
+              <div className="text-lg font-bold flex flex-col items-center p-5">
+                <span
+                  style={{
+                    fontFamily: "Sans-Bold",
+                  }}
+                  className="font-semibold"
+                >
+                  Новые товары:
+                </span>
+                <div className="text-center">
+                  добавлены новые товары под прилавком
+                </div>
+                <div
+                  style={{
+                    fontFamily: "Sans-Bold",
+                  }}
+                >
+                  БАКАЛЕЯ
+                </div>
+                <div className="flex flex-row items-center mt-5">
+                  <img
+                    src="/images/products/food-1.png"
+                    alt=""
+                    style={{
+                      height: "80px",
+                    }}
+                  />
+                  <img
+                    src="/images/products/food-2.png"
+                    alt=""
+                    style={{
+                      height: "80px",
+                    }}
+                  />
+                  <img
+                    src="/images/products/food-3.png"
+                    alt=""
+                    style={{
+                      height: "80px",
+                    }}
+                  />
+                  <img
+                    src="/images/products/food-4.png"
+                    alt=""
+                    style={{
+                      height: "80px",
+                    }}
+                  />
+                  <img
+                    src="/images/products/food-5.png"
+                    alt=""
+                    style={{
+                      height: "80px",
+                    }}
+                  />
+                </div>
+              </div>
+
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-5"
+                onClick={() => handleNextLevelStart()}
+              >
+                Следующий день
+              </button>
+            </div>
+            <div>
+              <img
+                style={{
+                  position: "absolute",
+                  bottom: "0",
+                  right: "0",
+                  width: "150px",
+                  zIndex: "0",
+                }}
+                src="/images/worker2.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </HeaderGame>
+      );
+    } else {
+      return (
+        <HeaderGame>
+          <div
+            style={{
+              marginTop: "110px",
+            }}
+            className="flex flex-col h-screen w-screen"
+          >
+            <div className="flex flex-col items-center justify-center h-full gap-1">
+              <div
+                className="text-4xl font-bold"
+                style={{
+                  fontFamily: "Sans-Bold",
+                }}
+              >
+                День окончен
+              </div>
+              <div className="text-2xl font-bold">Твой счет {score}</div>
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-5"
+                onClick={() => handleNextLevelStart()}
+              >
+                Следующий день
+              </button>
+            </div>
+          </div>
+        </HeaderGame>
+      );
+    }
   }
 
   if (gameOver) {
@@ -550,8 +847,15 @@ export const Game = () => {
             className="flex flex-col h-screen w-screen"
           >
             <div className="flex flex-col items-center justify-center h-full">
-              <div className="text-4xl font-bold">Game Over</div>
-              <div className="text-2xl font-bold">
+              <div
+                className="text-4xl font-bold"
+                style={{
+                  fontFamily: "Sans-Bold",
+                }}
+              >
+                Game Over
+              </div>
+              <div className="text-xl font-bold">
                 Твой счет {userScore !== null ? userScore : score}
               </div>
               <button
@@ -574,11 +878,57 @@ export const Game = () => {
             style={{
               marginTop: "110px",
             }}
-            className="flex flex-col h-screen w-screen"
+            className="flex flex-col w-screen"
           >
-            <div className="flex flex-col items-center justify-center h-full">
-              <div className="text-4xl font-bold">Game Over</div>
-              <div className="text-2xl font-bold">
+            <div
+              className="flex flex-col items-center mt-[-250px]"
+              style={{
+                zIndex: 2,
+              }}
+            >
+              <div>
+                <img
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    right: "0",
+                    width: "150px",
+                    zIndex: "0",
+                  }}
+                  src="/images/happy.png"
+                  alt=""
+                />
+                <img
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    width: "150px",
+                    zIndex: "0",
+                  }}
+                  src="/images/happy2.png"
+                  alt=""
+                />
+              </div>
+              <div>
+                <img
+                  src="/images/win.png"
+                  alt=""
+                  style={{
+                    width: "150px",
+                  }}
+                />
+              </div>
+              <div
+                className="text-4xl font-bold"
+                style={{
+                  fontFamily: "Sans-Bold",
+                  marginTop: "20px",
+                }}
+              >
+                Победа! 🎉
+              </div>
+              <div className="text-xl font-bold mt-2">
                 Твой счет {userScore !== null ? userScore : score}
               </div>
               <button
@@ -591,6 +941,32 @@ export const Game = () => {
               <i className="text-sx font-medium font- text-blue-100 font-bold mt-5 flex flex-col items-center justify-center text-center ">
                 Знай что ты можешь лучше! <br /> Но счет не сохранится!
               </i>
+            </div>
+            <div>
+              <div>
+                <img
+                  style={{
+                    position: "absolute",
+                    bottom: "0",
+                    right: "0",
+                    width: "150px",
+                    zIndex: "0",
+                  }}
+                  src="/images/worker2.png"
+                  alt=""
+                />
+                <img
+                  style={{
+                    position: "absolute",
+                    bottom: "0",
+                    left: "0",
+                    width: "150px",
+                    zIndex: "0",
+                  }}
+                  src="/images/worker.png"
+                  alt=""
+                />
+              </div>
             </div>
           </div>
         </HeaderGame>
@@ -612,11 +988,12 @@ export const Game = () => {
         className="flex flex-col w-screen h-screen "
         style={{
           marginTop: "110px",
+          backgroundColor: "#E6F0D7",
         }}
       >
         {/* Header */}
         <div className="h-[50px] md:h-[100px] flex flex-row items-center justify-between p-6 gap-5">
-          <div className="text-md font-bold flex flex-row items-center gap-2">
+          <div className="text-md font-bold flex flex-row items-center gap-2 text-black">
             <img
               src="/images/lives.png"
               alt=""
@@ -648,18 +1025,36 @@ export const Game = () => {
               }}
             />
           </div>
-          <div className="text-xs md:text-md font-bold">
+          <div
+            style={{
+              fontFamily: "Sans-Bold",
+            }}
+            className="text-xs md:text-md font-bold text-black"
+          >
             {levels[currentLevel].name}
           </div>
-          <div className="text-xs md:text-md font-bold">
+          <div
+            style={{
+              fontFamily: "Sans-Bold",
+            }}
+            className="text-xs md:text-md font-bold text-black"
+          >
             {formatTime(timeLeft)}
           </div>
-          <div className="text-xs md:text-md font-bold">Счет: {score}</div>
+          <div
+            style={{
+              fontFamily: "Sans-Bold",
+            }}
+            className="text-xs md:text-md font-bold text-black"
+          >
+            Счет: {score}
+          </div>
         </div>
         <div
           className="flex-1 overflow-y-auto overflow-x-hidden"
           style={{
-            marginBottom: "360px",
+            marginBottom: "380px",
+            backgroundColor: "#E6F0D7",
           }}
         >
           <ProductRow
