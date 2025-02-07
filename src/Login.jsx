@@ -38,7 +38,7 @@ export default function Login() {
   return (
     <div className="text-white flex flex-col items-center justify-center px-4">
       <Header>
-        <div className="min-h-screen bg-gradient-to-br from-blue-900 via-green-900 to-black text-white flex flex-col items-center justify-center px-4">
+        <div className="min-h-screen  text-white flex flex-col items-center justify-center px-4">
           <div className="mt-8 w-full max-w-md bg-black/50 rounded-xl p-6 shadow-lg">
             <h2
               className="text-2xl font-semibold mb-4"

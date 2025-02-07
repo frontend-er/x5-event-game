@@ -4,7 +4,7 @@ export const useGameLogic = (levels, onGameEnd) => {
   const [currentLevel, setCurrentLevel] = useState(0);
   const [currentOrder, setCurrentOrder] = useState(0);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
-  const [lives, setLives] = useState(3);
+  const [lives, setLives] = useState(2);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(levels[currentLevel].time);
   const [cart, setCart] = useState([]);
@@ -29,6 +29,12 @@ export const useGameLogic = (levels, onGameEnd) => {
   useEffect(() => {
     setCart([]);
   }, [currentOrder, currentLevel]);
+
+  useEffect(() => {
+    if (currentLevel) {
+      setLives(3);
+    }
+  }, [currentLevel]);
 
   useEffect(() => {
     if (!levelCompleted) {

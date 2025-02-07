@@ -1131,10 +1131,7 @@ export const Game = () => {
           <img
             src="/images/cart-bg.png"
             alt=""
-            style={{
-              objectPosition: "center",
-              position: "absolute",
-            }}
+            className="object-center absolute block lg:hidden"
           />
           <motion.img
             ref={cartRef}
@@ -1150,6 +1147,7 @@ export const Game = () => {
           <img
             src={`/images/user/${levels[currentLevel].orders[currentOrder].user}`}
             alt="User"
+            className="block lg:hidden"
             style={{
               width: "40px",
               height: "40px",
@@ -1182,6 +1180,7 @@ export const Game = () => {
                 alt="User"
                 initial={{ left: "60%" }} // Start at the same position as the previous user
                 animate={{ left: "90%" }} // Move to the new position
+                className="block lg:hidden"
                 transition={{ duration: 0.8, ease: "easeInOut" }} // Smooth transition
                 style={{
                   width: "40px",

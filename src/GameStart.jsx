@@ -31,15 +31,27 @@ const GameStart = () => {
             marginTop: "0px",
           }}
         >
-          <h1
+          <div
+            className="text-3xl"
             style={{
               fontFamily: "Sans-Bold",
             }}
           >
-            Игра «Мастер сборки»
-          </h1>
+            МАСТЕР СБОРКИ
+          </div>
 
           <div>
+            <div
+              style={{
+                marginTop: "10px",
+                marginBottom: "10px",
+                fontFamily: "Sans-Regular",
+                fontSize: "1rem",
+              }}
+            >
+              Проверь свои навыки сборки и скорость мышления в увлекательной
+              игре, где каждая секунда на счету!
+            </div>
             <img
               src="https://static.tildacdn.com/tild6531-3635-4233-b932-356539616465/_.jpg"
               alt=""
@@ -50,33 +62,34 @@ const GameStart = () => {
                 marginTop: "20px",
               }}
             >
-              Представь себя ловким сборщиком заказов в оживленном магазине.
-              Перед тобой длинный прилавок, заполненный разнообразными товарами.
-              С помощью тапов ты перемещаешься вдоль прилавка, где на разных
-              секциях выложены различные продукты.
+              <span
+                className=""
+                style={{
+                  fontFamily: "Sans-Bold",
+                }}
+              >
+                Твоя задача –
+              </span>{" "}
+              собрать все заказы за отведенное время, избегая добавления в
+              корзину ненужных товаров.
+            </div>
+            <div
+              style={{
+                marginTop: "20px",
+                fontFamily: "Sans-Bold",
+                fontSize: "1.2rem",
+                textDecoration: "underline",
+              }}
+            >
+              Правила игры
             </div>
             <ul className="mt-5 space-y-2">
               <li className="">
-                <span
-                  style={{
-                    fontFamily: "Sans-Bold",
-                  }}
-                  className="font-bold"
-                >
-                  Собирай заказы:
-                </span>{" "}
-                кликай на товары, чтобы добавить их в корзину
+                Зарабатывай 10 баллов за каждый правильно собранный товар;
               </li>
               <li>
-                <span
-                  style={{
-                    fontFamily: "Sans-Bold",
-                  }}
-                  className="font-semibold"
-                >
-                  Не теряй время:
-                </span>{" "}
-                не добавляй в корзину товары которые не в заказе
+                Пройди все 10 уровней сложности – чем выше уровень, тем больше
+                товаров и заказов, но меньше времени;
               </li>
               <li>
                 <span
@@ -90,44 +103,37 @@ const GameStart = () => {
                 за ограниченное время
               </li>
               <li>
-                <span
-                  style={{
-                    fontFamily: "Sans-Bold",
-                  }}
-                  className="font-semibold"
-                >
-                  Всего 10 дней:
-                </span>
-                чтобы показать свои навыки
-              </li>
-              <li>
-                <span
-                  style={{
-                    fontFamily: "Sans-Bold",
-                  }}
-                  className="font-semibold"
-                >
-                  Усложнения:
-                </span>
-                Больше товаров, больше заказов, меньше времени
+                Не допускай ошибок – на одном уровне можно совершить максимум 2
+                ошибки при сборке заказов.
               </li>
             </ul>
-            {currentUser && (
-              <div>
-                <button
-                  className="bg-green-500 text-white py-3 px-8 rounded-lg font-semibold hover:bg-green-600 "
-                  style={{
-                    marginTop: "20px",
-                    backgroundColor: "#e151a1",
-                  }}
-                  onClick={() => {
-                    navigate("/game");
-                  }}
-                >
-                  Начать игру
-                </button>
-              </div>
-            )}
+            <div
+              className="mt-5 text-xl"
+              style={{
+                fontFamily: "Sans-Bold",
+              }}
+            >
+              Чем быстрее и точнее ты выполняешь заказы, тем больше шансов
+              занять призовое место!
+            </div>
+            <div className="absolute bottom-0">
+              {currentUser && (
+                <div>
+                  <button
+                    className="bg-green-500 text-white py-3 px-8 rounded-lg font-semibold hover:bg-green-600 mb-8"
+                    style={{
+                      marginTop: "20px",
+                      backgroundColor: "#e151a1",
+                    }}
+                    onClick={() => {
+                      navigate("/game");
+                    }}
+                  >
+                    Начать игру
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </HeaderGame>

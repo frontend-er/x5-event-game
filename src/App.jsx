@@ -14,7 +14,13 @@ import GameStart from "./GameStart";
 function App() {
   return (
     <Router>
-      <div className="min-h-screen min-w-screen bg-gradient-to-br from-blue-900 via-green-900 to-black text-white flex flex-col items-center justify-center overflow-hidden">
+      <div
+        className="min-h-screen min-w-screen bg-gradient-to-br from-blue-900 via-green-900 to-black text-white flex flex-col items-center justify-center overflow-hidden"
+        style={{
+          backgroundImage:
+            "linear-gradient(0.278turn, rgba(0, 146, 58, 1) 0%, rgba(77, 192, 105, 1) 51%, rgba(21, 165, 70, 1) 100%)",
+        }}
+      >
         <Routes>
           {/* Default route */}
           <Route path="/" element={<Navigate to="/registration" />} />

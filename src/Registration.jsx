@@ -15,7 +15,12 @@ export default function Registration() {
   });
   const [error, setError] = useState("");
   const [user, setUser] = useState(null);
-  const locations = ["Саларьево", "Вешки", "Троицкий", "Другой даркстор"];
+  const locations = [
+    "Саларьево (Vprok.ru)",
+    "Вешки (Vprok.ru)",
+    "Троицкий (Vprok.ru)",
+    "Даркстор X5 Доставка",
+  ];
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -43,7 +48,8 @@ export default function Registration() {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         form.email,
-        form.password
+        form.password,
+        form.phone
       );
       const currentUser = userCredential.user;
 
@@ -56,6 +62,7 @@ export default function Registration() {
               name: form.name,
               location: form.location,
               email: form.email,
+              phone: form.phone,
               score: 0,
             },
             { merge: true }
@@ -131,6 +138,14 @@ export default function Registration() {
               name="password"
               placeholder="Пароль"
               value={form.password}
+              onChange={handleChange}
+              className="w-full bg-gray-600 text-white placeholder-gray-400 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+            <input
+              type="text"
+              name="phone"
+              placeholder="Телефон"
+              value={form.phone}
               onChange={handleChange}
               className="w-full bg-gray-600 text-white placeholder-gray-400 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
