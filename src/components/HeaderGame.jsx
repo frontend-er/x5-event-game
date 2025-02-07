@@ -92,12 +92,19 @@ export const HeaderGame = ({ children }) => {
               >
                 Мои данные
               </li>
-              {currentUser && (
+              {currentUser ? (
                 <li
                   className="text-lg font-medium cursor-pointer"
                   onClick={handleLogout} // Use handleLogout here
                 >
                   Выход
+                </li>
+              ) : (
+                <li
+                  className="text-lg font-medium cursor-pointer"
+                  onClick={() => navigate("/login")}
+                >
+                  Вход
                 </li>
               )}
               <li>
