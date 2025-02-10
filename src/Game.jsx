@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 const levels = [
   {
     name: "День 1",
-    time: 90,
+    time: 80,
     orders: [
       {
         user: "user-1.png",
@@ -37,7 +37,7 @@ const levels = [
   },
   {
     name: "День 2",
-    time: 90,
+    time: 80,
     orders: [
       {
         user: "user-1.png",
@@ -75,7 +75,7 @@ const levels = [
   },
   {
     name: "День 3",
-    time: 90,
+    time: 80,
     orders: [
       {
         user: "user-1.png",
@@ -125,7 +125,7 @@ const levels = [
   },
   {
     name: "День 4",
-    time: 90,
+    time: 75,
     orders: [
       {
         user: "user-2.png",
@@ -155,7 +155,7 @@ const levels = [
   },
   {
     name: "День 5",
-    time: 90,
+    time: 75,
     orders: [
       {
         user: "user-2.png",
@@ -193,7 +193,7 @@ const levels = [
   },
   {
     name: "День 6",
-    time: 90,
+    time: 75,
     orders: [
       {
         user: "user-2.png",
@@ -239,7 +239,7 @@ const levels = [
   },
   {
     name: "День 7",
-    time: 90,
+    time: 75,
     orders: [
       {
         user: "user-2.png",
@@ -265,7 +265,7 @@ const levels = [
   },
   {
     name: "День 8",
-    time: 90,
+    time: 70,
     orders: [
       {
         user: "user-5.png",
@@ -299,7 +299,7 @@ const levels = [
   },
   {
     name: "День 9",
-    time: 90,
+    time: 70,
     orders: [
       {
         user: "user-5.png",
@@ -349,7 +349,7 @@ const levels = [
   },
   {
     name: "День 10",
-    time: 90,
+    time: 70,
     orders: [
       {
         user: "user-5.png",
@@ -685,19 +685,6 @@ export const Game = () => {
                 Следующий день
               </button>
             </div>
-            <div>
-              <img
-                style={{
-                  position: "absolute",
-                  bottom: "0",
-                  left: "0",
-                  width: "150px",
-                  zIndex: "0",
-                }}
-                src="/images/worker.png"
-                alt=""
-              />
-            </div>
           </div>
         </HeaderGame>
       );
@@ -790,19 +777,6 @@ export const Game = () => {
               >
                 Следующий день
               </button>
-            </div>
-            <div>
-              <img
-                style={{
-                  position: "absolute",
-                  bottom: "0",
-                  right: "0",
-                  width: "150px",
-                  zIndex: "0",
-                }}
-                src="/images/worker2.png"
-                alt=""
-              />
             </div>
           </div>
         </HeaderGame>

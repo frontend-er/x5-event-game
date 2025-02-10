@@ -171,11 +171,12 @@ export default function Registration() {
                 required
               />
               <label htmlFor="terms" className="text-white">
-                Я даю согласие на обработку моих данных в соответствии с{" "}
-                <a
-                  href="https://x5staff.ru/konfidence/"
-                  className="text-green-400"
-                >
+                Я даю согласие на{" "}
+                <a href="/doc/user.pdf" className="text-green-400">
+                  обработку моих данных
+                </a>{" "}
+                в соответствии с{" "}
+                <a href="/doc/pol.pdf" className="text-green-400">
                   Политикой конфиденциальности
                 </a>
               </label>
@@ -190,7 +191,12 @@ export default function Registration() {
               />
               <label htmlFor="terms" className="text-white">
                 Я соглашаюсь с
-                <a href="/gameStart" className="text-white ml-1">
+                <a
+                  href="/doc/rules.pdf"
+                  className="text-white ml-1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   правилами игры
                 </a>
               </label>
